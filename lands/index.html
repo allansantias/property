@@ -1,0 +1,886 @@
+<!DOCTYPE html>(.github/workflows)
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mwaura Property Managers</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Basic reset */
+    body, h1, ul, li, a {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      text-decoration: none;
+    }
+
+    /* Header styling */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background-color: #f8f8f8;
+      border-bottom: 1px solid #ddd;
+    }
+
+    /* Logo styling */
+    .logo {
+      height: 50px; /* Adjust as needed */
+      margin-right: 20px;
+    }
+
+    /* Navigation styling */
+    nav ul {
+      display: flex;
+      gap: 20px; /* Space between links */
+    }
+
+    nav ul li a {
+      color: #333;
+      font-weight: bold;
+      padding: 5px 10px;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #007bff; /* Change to your preferred hover color */
+    }
+
+    /* Table styling */
+    .classy-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    .classy-table th,
+    .classy-table td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .classy-table th {
+      background-color: #4CAF50; /* Green header */
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 14px;
+    }
+
+    .classy-table tbody tr {
+      transition: background-color 0.3s ease;
+    }
+
+    .classy-table tbody tr:hover {
+      background-color: #f5f5f5; /* Light gray hover effect */
+    }
+
+    .classy-table tbody tr:last-child td {
+      border-bottom: none; /* Remove border from last row */
+    }
+
+    .classy-table tbody td {
+      color: #333;
+      font-size: 14px;
+    }
+
+    /* Zebra striping for rows */
+    .classy-table tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    /* Add a subtle border to the table */
+    .classy-table {
+      border: 1px solid #e0e0e0;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #000;
+    }
+
+    /* Photos tab styling */
+    .photos-tab {
+      position: relative;
+      display: inline-block;
+      margin: 20px;
+    }
+
+    .photos-tab-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .dropdown-content select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .photo-album {
+      display: none;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .photo-album img {
+      width: 150px; /* Adjust size as needed */
+      height: 150px;
+      border-radius: 8px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .photo-album img:hover {
+      transform: scale(1.1);
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      /* Header adjustments for small screens */
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+      }
+
+      .logo {
+        margin-bottom: 10px;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      nav ul li a {
+        padding: 5px;
+      }
+
+      /* Table adjustments for small screens */
+      .classy-table {
+        font-size: 12px;
+      }
+
+      .classy-table th,
+      .classy-table td {
+        padding: 10px;
+      }
+
+      /* Modal adjustments for small screens */
+      .modal-content {
+        width: 90%;
+        margin: 20% auto;
+        padding: 10px;
+      }
+
+      /* Photos tab adjustments for small screens */
+      .photos-tab {
+        margin: 10px;
+      }
+
+      .photos-tab-button {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+      }
+
+      .dropdown-content {
+        width: 100%;
+        left: 0;
+        right: 0;
+      }
+
+      .photo-album img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      /* Further adjustments for very small screens */
+      h1 {
+        font-size: 24px;
+      }
+
+      .classy-table {
+        font-size: 10px;
+      }
+
+      .classy-table th,
+      .classy-table td {
+        padding: 8px;
+      }
+
+      .modal-content {
+        width: 95%;
+        margin: 10% auto;
+      }
+
+      .photo-album img {
+        width: 80px;
+        height: 80px;
+      }
+    }
+    
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.review-form {
+    margin-bottom: 40px;
+}
+
+.review-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.review-form input, .review-form select, .review-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.review-form button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.review-form button:hover {
+    background-color: #218838;
+}
+
+.reviews {
+    margin-top: 20px;
+}
+
+.review-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-left: 5px solid #28a745;
+}
+
+.review-item h3 {
+    margin: 0;
+    color: #333;
+}
+
+.review-item p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.review-item .rating {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+ /* Footer Styles */
+    .footer {
+      background-color: #333;
+      color: #fff;
+      padding: 40px 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+      margin: 20px;
+    }
+
+    .footer-section h3 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #4CAF50;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-section ul li i {
+      margin-right: 10px;
+      color: #4CAF50;
+    }
+
+    .footer-section ul li span {
+      font-size: 14px;
+    }
+
+    /* Social Media Icons */
+.social-media {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 15px; /* Space between icons */
+}
+
+.social-media li a {
+  color: #333; /* Icon color */
+  font-size: 24px; /* Icon size */
+  transition: color 0.3s ease;
+}
+
+.social-media li a:hover {
+  color: #25D366; /* Change color on hover */
+}
+
+/* WhatsApp Button */
+.whatsapp-button {
+  margin-top: 20px;
+}
+
+.whatsapp-button a {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #25D366;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.whatsapp-button a:hover {
+  background-color: #128C7E;
+}
+
+.whatsapp-button img {
+  width: 20px; /* Icon size */
+  height: 20px; /* Icon size */
+  margin-right: 8px; /* Space between icon and text */
+}
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #444;
+      font-size: 14px;
+    }
+
+    /* Responsive Footer */
+    @media (max-width: 768px) {
+      .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .footer-section {
+        margin: 10px 0;
+      }
+      /* Footer Container */
+.footer-container {
+  display: flex;
+  justify-content: space-between; /* Space between left and right sections */
+  align-items: flex-start; /* Align items to the top */
+  padding: 20px;
+  background-color: #f4f4f4; /* Light gray background */
+}
+
+/* Offices Section - Align to the right */
+.offices-section {
+  width: 45%; /* Adjust width as needed */
+}
+    
+.directions-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.directions-button:hover {
+  background-color: #218838;
+}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- Logo -->
+    <img src="logo land.jpg" alt="Mwaura Property Managers Logo" class="logo">
+    <h1>Mwaura Property Managers</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#media">Contact Us</a></li>
+                <li><a href="#" id="about-link">WHY US?</a></li>
+        <li><a href="#" id="reviews-link">Reviews</a></li>
+        <li><a href="#" id="faq-link">FAQ</a></li>
+      </ul>
+    </nav>
+    <a href="https://www.google.com/maps/dir//Mwaurapropertymanagers,+Gilgil" target="_blank" class="directions-button">
+      Get Directions to our Gilgil Offices
+  </a>
+ </header>
+ <div class="whatsapp-button">
+  <a href="https://wa.me/+254791235998?text=Hello%20I%20have%20a%20question%20about%20your%20land%20selling%20process" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
+    Message Us on WhatsApp
+  </a>
+</div>
+<section>
+  <div class="container">
+    <h2>Available Land Listings</h2>
+    <table class="classy-table">
+      <thead>
+        <tr>
+          <th>Land Size (Full Plots)</th>
+          <th>Location</th>
+          <th>Nearest Town</th>
+          <th>Price (KSH)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>50 X 100</td>
+          <td>Gilgil</td>
+          <td>Karunga</td>
+          <td>KSH 150,000</td>
+        </tr>
+        <tr>
+          <td> 50 X 100</td>
+          <td>Gilgil</td>
+          <td>Gema</td>
+          <td>KSH 300,000</td>
+        </tr>
+        <tr>
+          <td>50 X 100</td>
+          <td>Gilgil</td>
+          <td>Gema</td>
+          <td>KSH 250,000</td>
+        </tr>
+        <tr>
+          <td>50 X 100</td>
+          <td>Gilgil</td>
+          <td>Gema</td>
+          <td>KSH 170,000</td>
+        </tr>
+        <tr>
+          <td>50 X 100</td>
+          <td>Gilgil</td>
+          <td>Gema</td>
+          <td>KSH 170,000</td>
+        </tr>
+        <tr>
+          <td>50 X 100</td>
+          <td>Subukia</td>
+          <td>Subukia</td>
+          <td>KSH 65,000</td>
+        </tr>
+        <tr>
+          <td>50 X 100</td>
+          <td>Subukia</td>
+          <td>Subukia Town</td>
+          <td>KSH 90,000</td>
+        </tr>
+        <tr>
+          <td>50 X 100</td>
+          <td>Subukia</td>
+          <td>Subukia Town</td>
+          <td>KSH 150,000</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section>
+  <!-- About Modal -->
+  <div id="about-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>WHY US?</h2>
+      <div>
+        <p>Why Buy From Us?</p>
+        <p>At Mwaura Property Managers, we understand that buying land is one of the most significant investments you’ll ever make. That’s why we go above and beyond to ensure your experience is seamless, transparent, and rewarding. Here’s why you should choose us:</p>
+        <p><strong>1. Ready Available Title Deeds</strong></p>
+        <p>We provide ready available title deeds for all our properties. Unlike other sellers who may delay the transfer of ownership, we ensure that the title deed is processed and handed over to you as soon as the transaction is complete. This guarantees your peace of mind and secures your investment from the very beginning.</p>
+        <p><strong>2. Title Deeds Included in Total Land Fees</strong></p>
+        <p>When you buy land from us, the cost of the title deed is included in the total land fees. There are no hidden charges or surprise costs. Our pricing is transparent, so you know exactly what you’re paying for. This makes the entire process affordable and hassle-free.</p>
+        <p><strong>3. Over 20 Years of Trusted Service</strong></p>
+        <p>With over a decade of experience in the property market, we have built a solid reputation for reliability and integrity. We have successfully helped hundreds of clients acquire their dream properties without any issues. Our long-standing presence in the industry is a testament to our commitment to excellence and customer satisfaction.</p>
+        <p><strong>4. Land with Water and Electricity</strong></p>
+        <p>All our sites come with access to water and electricity. We understand the importance of these utilities for both residential and commercial development. By ensuring that these essential services are already in place, we save you the time, effort, and cost of installing them yourself. You can start developing your land immediately after purchase.</p>
+        <p><strong>5. Flexible Payment Plans</strong></p>
+        <p>We offer flexible payment plans to make land ownership accessible to everyone. You can start using your land after your first installment, giving you the opportunity to develop or utilize the property while completing your payments. Our goal is to make the process as convenient and stress-free as possible.</p>
+        <p><strong>6. Verified and Legally Compliant Properties</strong></p>
+        <p>Every property we sell is thoroughly verified to ensure it is free from disputes, encumbrances, or legal issues. We work closely with legal experts and government authorities to guarantee that all our lands are legally compliant and ready for development.</p>
+        <p><strong>7. Personalized Customer Support</strong></p>
+        <p>Our team is dedicated to providing personalized support throughout your land-buying journey. From the initial inquiry to the final handover, we are here to answer your questions, guide you through the process, and ensure you make an informed decision.</p>
+        <p><strong>8. Prime Locations</strong></p>
+        <p>Our properties are strategically located in prime areas with high potential for growth and development. Whether you’re looking for land for residential, commercial, or agricultural purposes, we have options that suit your needs and aspirations.</p>
+        <p><strong>Your Trust, Our Commitment</strong></p>
+        <p>At Mwaura Property Managers, we don’t just sell land—we help you build a future. Our commitment to transparency, quality, and customer satisfaction sets us apart. When you choose us, you’re not just buying land; you’re investing in a legacy.</p>
+        <p><strong>How to Get Started</strong></p>
+        <p>Ready to take the first step toward owning your dream property? Contact us today to schedule a site visit or speak with one of our property experts. Let us help you turn your vision into reality.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <!-- Reviews Modal -->
+  <div id="reviews-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+       <div class="container">
+        <h1>Land Selling Process Reviews</h1>
+        
+        <!-- Review Form -->
+        <div class="review-form">
+            <h2>Write a Review</h2>
+            <form id="reviewForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="rating">Rating:</label>
+                <select id="rating" name="rating" required>
+                    <option value="1">1 Star</option>
+                    <option value="2">2 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="5">5 Stars</option>
+                </select>
+                
+                <label for="comment">Comment:</label>
+                <textarea id="comment" name="comment" rows="4" required></textarea>
+                
+                <button type="submit">Submit Review</button>
+            </form>
+        </div>
+        
+        <!-- Reviews Display -->
+        <div class="reviews">
+            <h2>Customer Reviews</h2>
+            <div id="reviewsList"></div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </section>
+<section>
+  <!-- FAQ Modal -->
+  <div id="faq-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Frequently Asked Questions</h2>
+      <p><strong>Q: What payment plans are available?</strong></p>
+      <p>A: We offer flexible payment plans. Contact us for details.</p>
+      <p><strong>Q: Can I visit the site before purchasing?</strong></p>
+      <p>A: Yes, site visits are available upon request.</p>
+    </div>
+  </div>
+</section>
+  <!-- Photos Tab -->
+  <div class="photos-tab">
+    <button class="photos-tab-button">Photos</button>
+    <div class="dropdown-content">
+      <select id="location-dropdown">
+        <option value="">Select Location</option>
+        <option value="Karunga">Karunga</option>
+        <option value="Mutaita">Mutaita</option>
+        <option value="Subukia">Subukia</option>
+        <option value="Gema">Gema</option>
+      </select>
+    </div>
+    <div id="photo-album" class="photo-album"></div>
+  </div>
+  <footer class="footer">
+  <div class="footer-content">
+    <!-- Contact Section -->
+    <div class="footer-section">
+      <h3>Contact Us</h3>
+      <ul class="contact-list">
+        <li>
+          <i class="fas fa-phone"></i>
+          <span>+254 722 424 941</span>
+        </li>
+        <li>
+          <i class="fas fa-envelope"></i>
+          <span>info@mwauraproperties.com</span>
+        </li>
+        <li>
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Mwaura Property Managers, shambaland street, Gilgil - Nakuru County</span>
+        </li>
+      </ul>
+    </div>
+
+<section
+   <!-- Social Media Section -->
+<div class="footer-section">
+<!-- Social Media Section -->
+<div id="media" class="footer-section">
+  <h3>Follow Us</h3>
+  <ul class="social-media">
+    <li>
+      <a href="https://instagram.com/mwauraproperties" target="_blank">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/profile.php?id=100076144754734&mibextid=ZbWKwL" target="_blank">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://twitter.com/mwauraproperties" target="_blank">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- WhatsApp Button -->
+<div class="whatsapp-button">
+  <a href="https://wa.me/+254791235998?text=Hello%20I%20have%20a%20question%20about%20your%20land%20selling%20process" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
+    Message Us on WhatsApp
+  </a>
+</div>
+</section>
+<section>
+<div class="footer-container">
+  <!-- Other sections (e.g., Social Media, WhatsApp Button) -->
+  
+  <!-- Offices Section -->
+  <div class="footer-section offices-section">
+    <h3>Our Offices</h3>
+    <ul class="offices-list">
+      <li>
+        <i class="fas fa-building"></i>
+        <span>Mwaura Office: 0722 424 941</span>
+      </li>
+      <li>
+        <i class="fas fa-building"></i>
+        <span>Gilgil Office: Rose 0791 235 998</span>
+      </li>
+      <li>
+        <i class="fas fa-building"></i>
+        <span>Nakuru Office: Douglas 0791 238 628</span>
+      </li>
+      <li>
+        <i class="fas fa-building"></i>
+        <span>Gigil Office: Paul 0796 923 033</span>
+      </li>
+    </ul>
+  </div>
+</div>
+</section>
+  <!-- Footer Bottom -->
+  <div class="footer-bottom">
+    <p>&copy; 2023 Mwaura Property Managers. All rights reserved.</p>
+  </div>
+</footer>
+  <script>
+    // Get the modal elements
+    const aboutModal = document.getElementById("about-modal");
+    const reviewsModal = document.getElementById("reviews-modal");
+    const faqModal = document.getElementById("faq-modal");
+
+    // Get the links that open the modals
+    const aboutLink = document.getElementById("about-link");
+    const reviewsLink = document.getElementById("reviews-link");
+    const faqLink = document.getElementById("faq-link");
+
+    // Get the close buttons
+    const closeButtons = document.querySelectorAll(".close");
+
+    // Open About Modal
+    aboutLink.addEventListener("click", () => {
+      aboutModal.style.display = "block";
+    });
+
+    // Open Reviews Modal
+    reviewsLink.addEventListener("click", () => {
+      reviewsModal.style.display = "block";
+    });
+
+    // Open FAQ Modal
+    faqLink.addEventListener("click", () => {
+      faqModal.style.display = "block";
+    });
+
+    // Close Modals
+    closeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        aboutModal.style.display = "none";
+        reviewsModal.style.display = "none";
+        faqModal.style.display = "none";
+      });
+    });
+
+    // Close Modal if user clicks outside the modal
+    window.addEventListener("click", (event) => {
+      if (event.target === aboutModal) {
+        aboutModal.style.display = "none";
+      }
+      if (event.target === reviewsModal) {
+        reviewsModal.style.display = "none";
+      }
+      if (event.target === faqModal) {
+        faqModal.style.display = "none";
+      }
+    });
+
+    // Photos Tab Functionality
+    document.addEventListener("DOMContentLoaded", function () {
+      const photosTabButton = document.querySelector(".photos-tab-button");
+      const dropdownContent = document.querySelector(".dropdown-content");
+      const locationDropdown = document.getElementById("location-dropdown");
+      const photoAlbum = document.getElementById("photo-album");
+
+      // Show dropdown when Photos tab is clicked
+      photosTabButton.addEventListener("click", function () {
+        dropdownContent.style.display = "block";
+      });
+
+      // Hide dropdown when clicking outside
+      document.addEventListener("click", function (event) {
+        if (!event.target.closest(".photos-tab")) {s
+          dropdownContent.style.display = "none";
+        }
+      });
+
+      // Show photo album when a location is selected
+      locationDropdown.addEventListener("change", function () {
+        const selectedLocation = locationDropdown.value;
+        if (selectedLocation) {
+          photoAlbum.innerHTML = ""; // Clear previous photos
+          for (let i = 1; i <= 10; i++) {
+            const img = document.createElement("img");
+            img.src = `images/${selectedLocation}/${i}.jpg`; // Adjust path as needed
+            img.alt = `Photo ${i} of ${selectedLocation}`;
+            photoAlbum.appendChild(img);
+          }
+          photoAlbum.style.display = "flex";
+        } else {
+          photoAlbum.style.display = "none";
+        }
+      });
+    });
+    // script.js
+document.getElementById('reviewForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const rating = document.getElementById('rating').value;
+    const comment = document.getElementById('comment').value;
+    
+    const reviewItem = document.createElement('div');
+    reviewItem.classList.add('review-item');
+    
+    reviewItem.innerHTML = `
+        <h3>${name}</h3>
+        <p><strong>Rating:</strong> <span class="rating">${'★'.repeat(rating)}${'☆'.repeat(5 - rating)}</span></p>
+        <p>${comment}</p>
+    `;
+    
+    document.getElementById('reviewsList').appendChild(reviewItem);
+    
+    // Clear the form
+    document.getElementById('reviewForm').reset();
+});
+  </script>
+</body>
+</html>
